@@ -4,8 +4,8 @@ import os
 
 from google.cloud import speech
 
-from live_translate.utils.microphone_stream import MicrophoneStream
-from live_translate.utils.listen_loop import listen_loop
+from LiveTranslate.utils.microphone_stream import MicrophoneStream
+from LiveTranslate.utils.listen_loop import listen_loop
 
 # Audio recording parameters
 RATE = 16000

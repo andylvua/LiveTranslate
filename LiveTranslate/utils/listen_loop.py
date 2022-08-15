@@ -1,8 +1,8 @@
 import re
 import sys
 
-from live_translate.utils.text_to_speech import TextToSpeech
-from live_translate.utils.translator import Translator
+from LiveTranslate.utils.text_to_speech import TextToSpeech
+from LiveTranslate.utils.translator import Translator
 
 
 def listen_loop(responses):

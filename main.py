@@ -1,4 +1,4 @@
-from live_translate.speech_recognition import LiveTranslate
+from LiveTranslate.speech_recognition import LiveTranslate
 
 
 def main():
