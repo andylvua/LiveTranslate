@@ -1,0 +1,130 @@
+/*stylesheet*/
+
+body
+{
+    background-color: #212121;
+}
+p
+{
+    font-size: 20px;
+    color: #fff;
+    text-align: center;
+    margin-top: 40vh;
+    font-family: 'Roboto', sans-serif;
+}
+.transcript
+{
+    font-size: 40px;
+    color: #5d5d5d;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+
+    -webkit-transition: color 0.5s ease;
+    -moz-transition: color 0.5s ease;
+    -o-transition: color 0.5s ease;
+    transition: color 0.5s ease;
+}
+
+.button-cover {
+    height: 50px;
+    width: 200px;
+    margin: 20px;
+    background-color: #333333;
+    border-radius: 24px;
+}
+
+
+.button-cover, .knobs, .layer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.button-cover a {
+    font-family: 'Roboto', sans-serif;
+    color: #ebf7fc;
+    position: absolute;
+    margin: 15px 24px;
+
+}
+
+.translate {
+    position: relative;
+    top: 50%;
+    width: 74px;
+    height: 36px;
+    margin: -18px 118px;
+    overflow: hidden;
+}
+
+.translate,
+.translate .layer {
+    border-radius: 100px;
+}
+
+.translate {
+    border-radius: 2px;
+}
+
+.checkbox {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 3;
+}
+
+.knobs {
+    z-index: 2;
+}
+
+.layer {
+    width: 100%;
+    background-color: #ff8b7b;
+    transition: 0.3s ease all;
+    z-index: 1;
+}
+
+#translate .knobs:before {
+    content: "OFF";
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 20px;
+    height: 10px;
+    color: #fff;
+    font-size: 10px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    text-align: center;
+    line-height: 1;
+    padding: 9px 4px;
+    background-color: #e74622;
+    border-radius: 50%;
+    /*noinspection CssInvalidPropertyValue*/
+    transition: 0.3s ease all, left 0.3s cubic-bezier(0.18, 0.89, 0.35, 1.15);
+}
+
+#translate .checkbox:active + .knobs:before {
+    width: 46px;
+    border-radius: 100px;
+}
+
+#translate .checkbox:checked:active + .knobs:before {
+    margin-left: -26px;
+}
+
+#translate .checkbox:checked + .knobs:before {
+    content: "ON";
+    left: 42px;
+    background-color: #7ead0a;
+}
+
+#translate .checkbox:checked ~ .layer {
+    background-color: #dfff82;
+}
