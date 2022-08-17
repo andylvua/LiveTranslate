@@ -5,7 +5,7 @@ import os
 from google.cloud import speech
 
 from LiveTranslate.utils.microphone_stream import MicrophoneStream
-from LiveTranslate.utils.listen_loop import listen_loop
+from LiveTranslate.utils.listen_loop import ListenLoop
 
 # Audio recording parameters
 RATE = 16000
@@ -18,7 +18,7 @@ os.environ["GRPC_ENABLE_FORK_SUPPORT"] = "False"
 
 
 class LiveTranslate:
-    def __init__(self, speech_language):
+    def __init__(self, speech_language, speak_results=False):
         self.client = speech.SpeechClient()
 
         self.config = speech.RecognitionConfig(
@@ -37,6 +37,8 @@ class LiveTranslate:
             }
         )
 
+        self.listen_loop = ListenLoop(speak_results=speak_results)
+
     def start_listening(self):
         print("Listening...")
 
@@ -50,4 +52,8 @@ class LiveTranslate:
             # noinspection PyArgumentList
             responses = self.client.streaming_recognize(self.streaming_config, requests)
 
-            listen_loop(responses)
+            self.listen_loop.configure(responses)
+            self.listen_loop.start()
+
+    def get_result(self, translated=False):
+        return self.listen_loop.get_result(translated=translated)
