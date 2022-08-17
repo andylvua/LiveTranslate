@@ -5,16 +5,33 @@ from LiveTranslate.utils.text_to_speech import TextToSpeech
 from LiveTranslate.utils.translator import Translator
 
 
-def listen_loop(responses):
-    for response in responses:
-        if not response.results:
-            continue
+class ListenLoop:
+    def __init__(self, speak_results):
+        self.responses = None
+        self.speak_results = speak_results
+        self.result = None
+        self.transcript = ""
+        self.translator = Translator()
 
-        result = response.results[0]
-        if not result.alternatives:
-            continue
+    def start(self):
+        self.__listen_loop()
 
-        transcript = result.alternatives[0].transcript
+    def configure(self, responses):
+        self.responses = responses
+
+    def __listen_loop(self):
+        for response in self.responses:
+            if not response.results:
+                continue
+
+            result = response.results[0]
+            if not result.alternatives:
+                continue
+
+            self.result = result
+
+            transcript = result.alternatives[0].transcript
+            self.transcript = transcript
 
         print_result(result, transcript)
 
