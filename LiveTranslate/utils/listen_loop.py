@@ -33,24 +33,35 @@ class ListenLoop:
             transcript = result.alternatives[0].transcript
             self.transcript = transcript
 
-        print_result(result, transcript)
+            self.__print_result(result)
 
-        if re.search(r"\b(exit|quit)\b", transcript, re.I):
-            print("Exiting..")
-            break
+            if self.speak_results:
+                self.speak_result()
 
+            if re.search(r"\b(exit|quit)\b", transcript, re.I):
+                print("Exiting..")
+                break
 
-def print_result(result, transcript):
-    if result.is_final:
-        print("\r" + transcript, end=" ✓")
-        print("\n")
+    def __print_result(self, result):
+        if result.is_final:
+            print("\r" + self.transcript, end=" ✓")
+            print("\n")
+        else:
+            sys.stdout.write('\r' + self.transcript)
+            sys.stdout.flush()
 
-        speak_result(transcript)
-    else:
-        sys.stdout.write('\r' + transcript)
-        sys.stdout.flush()
+    def __translate_result(self):
+        return self.translator.translate(text=self.transcript)
 
+    def speak_result(self):
+        translated = self.__translate_result()
+        TextToSpeech(translated).play_audio()
 
-def speak_result(transcript):
-    translated = Translator().translate(text=transcript)
-    TextToSpeech(translated).play_audio()
+    def get_result(self, translated=False):
+        result = {
+            "result": self.result,
+        }
+        if translated:
+            result["translated"] = self.__translate_result()
+
+        return result
