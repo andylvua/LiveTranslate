@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Live Translate</title>
+</head>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+
+<style>
+    body
+    {
+        background-color: #212121;
+    }
+    p
+    {
+        font-size: 20px;
+        text-align: center;
+        margin-top: 40vh;
+        font-family: 'Roboto', sans-serif;
+    }
+    .transcript
+    {
+        font-size: 40px;
+        color: #5d5d5d;
+        text-align: center;
+        font-family: 'Roboto', sans-serif;
+
+        -webkit-transition: color 0.5s ease;
+        -moz-transition: color 0.5s ease;
+        -o-transition: color 0.5s ease;
+        transition: color 0.5s ease;
+    }
+</style>
+<body>
+<button onClick="set_translate('True')">Translate</button>
+
+<p>Transcript:</p>
+<div class="transcript" id="transcript"> Start speaking</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!--suppress JSUnusedGlobalSymbols, JSUnresolvedVariable -->
+<script>
+    let translate = "False";
+    function set_translate(choice){
+        translate = choice;
+    }
+    (
+        function worker() {
+            $.ajax(
+                {
+                    url: '/get_result',
+                        type: 'POST',
+                        data: {
+                            'translate': translate
+                        },
+                    success: function(data) {
+                        let transcript = data.transcript;
+                        let is_final = data.is_final;
+                        let translated = data.translated;
+                        let transcript_div = $('#transcript');
+
+                        if (transcript) {
+                            if(translate === "True")
+                            {
+                                transcript_div.text(translated);
+                            }
+                            else
+                            {
+                                transcript_div.text(transcript);
+                            }
+
+                            if (is_final) {
+                                transcript_div.css('color', '#57b639');
+                            } else {
+                                transcript_div.css('color', '#5d5d5d');
+                            }
+                        }
+                    },
+                    complete: function() {
+                        // Schedule the next request when the current one's complete
+                        setTimeout(worker, 1000);
+                    },
+                }
+            );
+        }
+    )();
+</script>
+
+</body>
+</html>
