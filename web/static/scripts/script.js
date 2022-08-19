@@ -11,20 +11,39 @@ function toggle_translate(){
 
     console.log(translate)
 }
-(
-    function worker() {
-        $.ajax(
-            {
-                url: '/get_result',
-                    type: 'POST',
-                    data: {
-                        'translate': translate
-                    },
-                success: function(data) {
-                    let transcript = data.transcript;
-                    let is_final = data.is_final;
-                    let translated = data.translated;
-                    let transcript_div = $('#transcript');
+
+function set_language(selectObject) {
+    let language = selectObject.value;
+
+    console.log(language)
+    $.ajax(
+        {
+            url: '/set_language',
+            type: 'POST',
+            data: {
+                'language': language
+            }
+        }
+    )
+}
+
+
+function worker() {
+    if (!listening) {
+        return;
+    }
+    $.ajax(
+        {
+            url: '/get_result',
+                type: 'POST',
+                data: {
+                    'translate': translate
+                },
+            success: function(data) {
+                let transcript = data.transcript;
+                let is_final = data.is_final;
+                let translated = data.translated;
+                let transcript_div = $('#transcript');
 
                     if (transcript) {
                         if(translate === "True")
