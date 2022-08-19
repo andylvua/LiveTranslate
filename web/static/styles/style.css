@@ -130,10 +130,16 @@ p
 
 .languages_selector {
     position: relative;
-    margin: 80px 0 0 12px;
+    left: 50%;
+    margin: 20px 0 0 -100px;
 }
 
-.languages_selector select {
+.translate_languages_selector {
+    position: absolute;
+    margin: 60px 0 0 12px;
+}
+
+.languages_selector select, .translate_languages_selector select {
     appearance: none;
     -moz-appearance: none;
     -webkit-appearance: none;
