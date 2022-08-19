@@ -89,28 +89,27 @@ function worker() {
                 let translated = data.translated;
                 let transcript_div = $('#transcript');
 
-                    if (transcript) {
-                        if(translate === "True")
-                        {
-                            transcript_div.text(translated);
-                        }
-                        else
-                        {
-                            transcript_div.text(transcript);
-                        }
-
-                        if (is_final) {
-                            transcript_div.css('color', '#57b639');
-                        } else {
-                            transcript_div.css('color', '#5d5d5d');
-                        }
+                if (transcript) {
+                    if(translate === "True")
+                    {
+                        transcript_div.text(translated);
                     }
-                },
-                complete: function() {
-                    // Schedule the next request when the current one's complete
-                    setTimeout(worker, 1000);
-                },
-            }
-        );
-    }
-)();
+                    else
+                    {
+                        transcript_div.text(transcript);
+                    }
+
+                    if (is_final) {
+                        transcript_div.css('color', '#57b639');
+                    } else {
+                        transcript_div.css('color', '#5d5d5d');
+                    }
+                }
+            },
+            complete: function() {
+                // Schedule the next request when the current one's complete
+                setTimeout(worker, 1000);
+            },
+        }
+    );
+}
