@@ -71,6 +71,20 @@ function set_language(selectObject) {
     )
 }
 
+function set_translation_language(selectObject) {
+    let language = selectObject.value;
+
+    console.log(language)
+    $.ajax(
+        {
+            url: '/set_translation_language',
+            type: 'POST',
+            data: {
+                'language': language
+            }
+        }
+    )
+}
 
 function worker() {
     function animate(element, text, speed) {
