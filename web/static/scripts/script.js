@@ -1,5 +1,49 @@
 // noinspection JSUnresolvedVariable,JSUnusedGlobalSymbols
 
+let listening = false;
+
+function validate_selected_speech()
+{
+    let language_selector = document.getElementById("language_selector");
+    let selected_value = language_selector.options[language_selector.selectedIndex].value;
+    if (selected_value === "Select speech language") {
+        alert("Please select a speech language");
+        return false;
+    }
+    return true;
+}
+
+function start_listening() {
+    let validation = validate_selected_speech();
+    if (!validation) {
+        return;
+    }
+
+    if (listening) {
+        alert("Already listening");
+        return;
+    }
+    $.ajax(
+        {
+            url: '/start_listening',
+            type: 'POST',
+        }
+    )
+
+    alert("Listening started")
+    listening = true;
+    worker();
+}
+
+function stop_listening() {
+    if (!listening) {
+        alert("Not listening");
+        return;
+    }
+    alert("Listening stopped")
+    listening = false;
+}
+
 let translate = "False";
 function toggle_translate(){
     if (translate === "False") {
