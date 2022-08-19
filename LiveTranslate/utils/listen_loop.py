@@ -44,11 +44,13 @@ class ListenLoop:
 
     def __print_result(self, result):
         if result.is_final:
-            print("\r" + self.transcript, end=" ✓")
-            print("\n")
+            pass
+            # print("\r" + self.transcript, end=" ✓")
+            # print("\n")
         else:
-            sys.stdout.write('\r' + self.transcript)
-            sys.stdout.flush()
+            pass
+            # sys.stdout.write('\r' + self.transcript)
+            # sys.stdout.flush()
 
     def __translate_result(self):
         return self.translator.translate(text=self.transcript)
