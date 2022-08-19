@@ -8,12 +8,26 @@ template_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), 'template
 app = Flask(__name__, template_folder=template_dir)
 
 live_translate = LiveTranslate(speech_language='en-US')
-threading.Thread(target=live_translate.start_listening).start()
+listening = threading.Thread(target=live_translate.start_listening)
 
 
 @app.route('/')
 def index():
     return render_template('index.html')
+
+
+@app.route('/start_listening', methods=['POST'])
+def start_listening():
+    if not listening.is_alive():
+        listening.start()
+    return 'Listening...'
+
+
+@app.route('/set_language', methods=['POST'])
+def set_language():
+    language = request.form['language']
+    live_translate.set_language(language)
+    return 'OK'
 
 
 @app.route('/get_result', methods=['POST'])
@@ -39,4 +53,4 @@ def get_result():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
