@@ -73,6 +73,13 @@ function set_language(selectObject) {
 
 
 function worker() {
+    function animate(element, text, speed) {
+        if(element.text() !== text) {
+            element.fadeOut(speed, function () {
+                element.text(text).fadeIn(speed);
+            });
+        }
+    }
     if (!listening) {
         return;
     }
@@ -92,11 +99,11 @@ function worker() {
                 if (transcript) {
                     if(translate === "True")
                     {
-                        transcript_div.text(translated);
+                        animate(transcript_div, translated, 100);
                     }
                     else
                     {
-                        transcript_div.text(transcript);
+                        animate(transcript_div, transcript, 100);
                     }
 
                     if (is_final) {
