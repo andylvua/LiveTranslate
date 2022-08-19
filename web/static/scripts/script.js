@@ -4,10 +4,17 @@ let listening = false;
 
 function validate_selected_speech()
 {
+    function animate_error(element) {
+       element.fadeOut(150).fadeIn(150).fadeOut(150).fadeIn(150).fadeOut(150).fadeIn(150);
+        }
+
+
     let language_selector = document.getElementById("language_selector");
     let selected_value = language_selector.options[language_selector.selectedIndex].value;
     if (selected_value === "Select speech language") {
-        alert("Please select a speech language");
+        let selector_jq = $('#language_selector');
+        animate_error(selector_jq);
+        // selector_jq.css('background', '#333333');
         return false;
     }
     return true;
@@ -30,7 +37,9 @@ function start_listening() {
         }
     )
 
-    alert("Listening started")
+    $("#transcript").fadeOut(300, function() {
+        $(this).text("Start speaking").fadeIn(300);
+    });
     listening = true;
     worker();
 }
@@ -40,8 +49,19 @@ function stop_listening() {
         alert("Not listening");
         return;
     }
-    alert("Listening stopped")
+
     listening = false;
+
+    let transcript_div = $('#transcript');
+    transcript_div.css('color', '#5d5d5d');
+
+    transcript_div.fadeOut(300, function() {
+        $(this).text("Stopped").fadeIn(300, function() {
+            $(this).delay(1000).fadeOut(300, function() {
+                $(this).text("Transcript will appear here").fadeIn(300);
+            });
+        });
+    });
 }
 
 let translate = "False";
