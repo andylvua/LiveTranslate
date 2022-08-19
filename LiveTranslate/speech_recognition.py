@@ -39,6 +39,10 @@ class LiveTranslate:
 
         self.listen_loop = ListenLoop(speak_results=speak_results)
 
+    def set_language(self, language):
+        self.streaming_config.config.language_code = language
+        print("Language set to {}".format(language))
+
     def start_listening(self):
         print("Listening...")
 
