@@ -9,7 +9,7 @@ p
     font-size: 20px;
     color: #fff;
     text-align: center;
-    margin-top: 40vh;
+    margin-top: 30vh;
     font-family: 'Roboto', sans-serif;
 }
 .transcript
@@ -47,7 +47,6 @@ p
     color: #ebf7fc;
     position: absolute;
     margin: 15px 24px;
-
 }
 
 .translate {
@@ -127,4 +126,59 @@ p
 
 #translate .checkbox:checked ~ .layer {
     background-color: #dfff82;
+}
+
+.languages_selector {
+    position: relative;
+    margin: 80px 0 0 12px;
+}
+
+.languages_selector select {
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    background: #333333;
+    height: 50px;
+    width: 200px;
+    border-radius: 24px;
+    border-color: #333333;
+    font-size: 15px;
+    color: #ffffff;
+    font-family: 'Roboto', sans-serif;
+    text-align-last: center;
+}
+
+.start, .stop {
+    position: absolute;
+    right: 0;
+    top: 0;
+    border: none;
+    color: white;
+    height: 50px;
+    width: 200px;
+    border-radius: 24px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    font-family: 'Roboto', sans-serif;
+    transition: background-color 0.5s ease;
+}
+
+.start {
+    margin: 20px;
+    background-color: #568308;
+}
+
+.start:hover {
+    background-color: #6ca40a;
+}
+
+.stop {
+    margin: 80px 20px 20px 0;
+    background-color: #333333;
+}
+
+.stop:hover {
+    background-color: #b63624;
 }
