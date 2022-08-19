@@ -3,26 +3,33 @@ import json
 import bs4
 import cloudscraper as cloudscraper
 
-url = 'https://cloud.google.com/speech-to-text/docs/languages'
+SPEECH_SUPPORTED_LANGUAGES = 'https://cloud.google.com/speech-to-text/docs/languages'
+TRANSLATION_SUPPORTED_LANGUAGES = 'https://cloud.google.com/translate/docs/languages'
 
-scraper = cloudscraper.create_scraper()
-request_result = scraper.get(url)
 
-soup = bs4.BeautifulSoup(request_result.text, "html.parser")
+def parse_supported_languages(target_url):
+    scraper = cloudscraper.create_scraper()
+    request_result = scraper.get(target_url)
 
-data = {}
-table_div = soup.find('div', {'id': 'lang-table-container'})
-table = table_div.find('table')
-table_body = table.find('tbody')
+    soup = bs4.BeautifulSoup(request_result.text, "html.parser")
 
-rows = table_body.find_all('tr')
-for row in rows:
-    cols = row.find_all('td')
-    cols = [element.text.strip() for element in cols]
-    data[cols[0]] = cols[1]
+    data = {}
+    table_div = soup.find('div', {'id': 'lang-table-container'})
+    try:
+        table = table_div.find('table')
+    except AttributeError:
+        table = soup.find('table')
 
-json_data = json.dumps(data)
+    table_body = table.find('tbody')
 
-with open('../static/assets/speech_supported_languages.json', 'w') as outfile:
-    json.dump(data, outfile)
+    rows = table_body.find_all('tr')
+    for row in rows:
+        cols = row.find_all('td')
+        cols = [element.text.strip() for element in cols]
+        data[cols[0]] = cols[1]
 
+    with open(f'../static/assets/{target_url.split("/")[-3]}_supported_languages.json', 'w') as outfile:
+        json.dump(data, outfile)
+
+
+parse_supported_languages(TRANSLATION_SUPPORTED_LANGUAGES)
