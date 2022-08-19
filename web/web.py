@@ -30,10 +30,16 @@ def set_language():
     return 'OK'
 
 
+@app.route('/set_translation_language', methods=['POST'])
+def set_translation_language():
+    language = request.form['language']
+    live_translate.set_translation_language(language)
+    return 'OK'
+
+
 @app.route('/get_result', methods=['POST'])
 def get_result():
     translate = (request.form.get('translate'))
-    print(translate)
     data = live_translate.get_result(translated=translate)
 
     result = data['result']
