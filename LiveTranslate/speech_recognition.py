@@ -45,6 +45,7 @@ class LiveTranslate:
 
     def set_translation_language(self, language):
         self.listen_loop.translator.target_language = language
+        print("Translation language set to {}".format(language))
 
     def start_listening(self):
         print("Listening...")
