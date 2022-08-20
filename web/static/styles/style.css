@@ -154,7 +154,7 @@ p
     text-align-last: center;
 }
 
-.start, .stop {
+.toggle_listening {
     position: absolute;
     right: 0;
     top: 0;
@@ -168,23 +168,23 @@ p
     display: inline-block;
     font-size: 15px;
     font-family: 'Roboto', sans-serif;
+    margin: 20px;
+    background-color: #333333;
     transition: background-color 0.5s ease;
 }
 
-.start {
-    margin: 20px;
-    background-color: #568308;
-}
-
-.start:hover {
-    background-color: #6ca40a;
-}
-
-.stop {
-    margin: 80px 20px 20px 0;
+.toggle_active {
     background-color: #333333;
 }
 
-.stop:hover {
-    background-color: #b63624;
+.toggle_active:hover {
+    background-color: #be0707;
+}
+
+.toggle_disabled {
+    background-color: #7ead0a;
+}
+
+.toggle_disabled:hover {
+    background-color: #97d00b;
 }

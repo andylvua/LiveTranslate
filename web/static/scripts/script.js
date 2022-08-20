@@ -31,6 +31,14 @@ function animate_changes (element, text, speed, delay, initial_text) {
     });
 }
 
+function toggle_listening() {
+    if (listening) {
+        stop_listening();
+    } else {
+        start_listening();
+    }
+}
+
 function start_listening() {
     let validation = validate_selected_speech(true);
     if (!validation) {
@@ -48,7 +56,11 @@ function start_listening() {
         }
     )
 
-    $('#stop_button').fadeIn(300);
+    let toggle_button = $('#toggle');
+    toggle_button.removeClass('toggle_disabled');
+    toggle_button.addClass('toggle_active');
+    toggle_button.text("Stop listening");
+
     $('#language_selector').prop('disabled', true);
 
     $("#transcript").fadeOut(300, function() {
@@ -73,7 +85,11 @@ function stop_listening() {
         }
     )
 
-    $('#stop_button').fadeOut(300);
+    let toggle_button = $('#toggle');
+    toggle_button.removeClass('toggle_active');
+    toggle_button.addClass('toggle_disabled');
+    toggle_button.text("Start listening");
+
     $('#language_selector').prop('disabled', false);
 
     let transcript_div = $('#transcript');
@@ -102,6 +118,10 @@ function set_language(selectObject) {
     let transcript_div = $('#transcript');
 
     animate_changes(transcript_div, "Language set to " + language_name, 300, 1000);
+
+    let toggle_button = $('#toggle');
+    toggle_button.removeClass('toggle_active');
+    toggle_button.addClass('toggle_disabled');
 
     console.log(language)
     $.ajax(
