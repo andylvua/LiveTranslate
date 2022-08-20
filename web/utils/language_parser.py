@@ -33,3 +33,4 @@ def parse_supported_languages(target_url):
 
 
 parse_supported_languages(TRANSLATION_SUPPORTED_LANGUAGES)
+parse_supported_languages(SPEECH_SUPPORTED_LANGUAGES)
