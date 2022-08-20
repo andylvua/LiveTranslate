@@ -2,7 +2,7 @@
 
 let listening = false;
 
-function validate_selected_speech()
+function validate_selected_speech(animate)
 {
     function animate_error(element) {
        element.fadeOut(150).fadeIn(150).fadeOut(150).fadeIn(150).fadeOut(150).fadeIn(150);
@@ -13,7 +13,9 @@ function validate_selected_speech()
     let selected_value = language_selector.options[language_selector.selectedIndex].value;
     if (selected_value === "Select speech language") {
         let selector_jq = $('#language_selector');
-        animate_error(selector_jq);
+        if(animate) {
+            animate_error(selector_jq);
+        }
         // selector_jq.css('background', '#333333');
         return false;
     }
@@ -21,7 +23,7 @@ function validate_selected_speech()
 }
 
 function start_listening() {
-    let validation = validate_selected_speech();
+    let validation = validate_selected_speech(true);
     if (!validation) {
         return;
     }
