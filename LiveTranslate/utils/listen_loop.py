@@ -16,6 +16,13 @@ class ListenLoop:
     def start(self):
         self.__listen_loop()
 
+    def stop(self):
+        print("Stopping...")
+        if self.responses:
+            self.responses.cancel()
+        self.transcript = ""
+        self.result = None
+
     def configure(self, responses):
         self.responses = responses
 

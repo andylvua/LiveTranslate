@@ -54,6 +54,13 @@ function stop_listening() {
 
     listening = false;
 
+    $.ajax(
+        {
+            url: '/stop_listening',
+            type: 'POST',
+        }
+    )
+
     $('#stop_button').fadeOut(300);
 
     let transcript_div = $('#transcript');

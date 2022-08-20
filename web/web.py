@@ -8,7 +8,6 @@ template_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), 'template
 app = Flask(__name__, template_folder=template_dir)
 
 live_translate = LiveTranslate(speech_language='en-US')
-listening = threading.Thread(target=live_translate.start_listening)
 
 
 @app.route('/')
@@ -18,9 +17,14 @@ def index():
 
 @app.route('/start_listening', methods=['POST'])
 def start_listening():
-    if not listening.is_alive():
-        listening.start()
+    live_translate.start_listening()
     return 'Listening...'
+
+
+@app.route('/stop_listening', methods=['POST'])
+def stop_listening():
+    live_translate.stop_listening()
+    return 'Stopped listening.'
 
 
 @app.route('/set_language', methods=['POST'])

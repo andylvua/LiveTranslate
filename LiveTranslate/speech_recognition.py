@@ -50,8 +50,8 @@ class LiveTranslate:
     def start_listening(self):
         print("Listening...")
 
-        with MicrophoneStream(RATE, CHUNK) as stream:
-            audio_generator = stream.generator()
+        with MicrophoneStream(RATE, CHUNK) as self.stream:
+            audio_generator = self.stream.generator()
             requests = (
                 speech.StreamingRecognizeRequest(audio_content=content)
                 for content in audio_generator
@@ -62,6 +62,10 @@ class LiveTranslate:
 
             self.listen_loop.configure(responses)
             self.listen_loop.start()
+
+    def stop_listening(self):
+        self.listen_loop.stop()
+        self.stream.closed = True
 
     def get_result(self, translated=False):
         return self.listen_loop.get_result(translated=translated)
