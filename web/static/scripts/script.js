@@ -22,6 +22,20 @@ function validate_selected_speech(animate)
     return true;
 }
 
+function animate_changes (element, text, speed, delay, initial_text) {
+    if (initial_text === undefined) {
+        initial_text = element.text();
+    }
+
+    element.fadeOut(speed, function() {
+        $(this).text(text).fadeIn(speed, function() {
+            $(this).delay(delay).fadeOut(speed, function() {
+                $(this).text(initial_text).fadeIn(speed);
+            });
+        });
+    });
+}
+
 function start_listening() {
     let validation = validate_selected_speech(true);
     if (!validation) {
@@ -70,13 +84,8 @@ function stop_listening() {
     let transcript_div = $('#transcript');
     transcript_div.css('color', '#5d5d5d');
 
-    transcript_div.fadeOut(300, function() {
-        $(this).text("Stopped").fadeIn(300, function() {
-            $(this).delay(1000).fadeOut(300, function() {
-                $(this).text("Transcript will appear here").fadeIn(300);
-            });
-        });
-    });
+    let transcript_placeholder = transcript_div.text();
+    animate_changes(transcript_div, "Stopped", 300, 1000, transcript_placeholder);
 }
 
 let translate = "False";
@@ -93,6 +102,11 @@ function toggle_translate(){
 
 function set_language(selectObject) {
     let language = selectObject.value;
+    let language_name = selectObject.options[selectObject.selectedIndex].text.split(" ")[0];
+
+    let transcript_div = $('#transcript');
+
+    animate_changes(transcript_div, "Language set to " + language_name, 300, 1000);
 
     console.log(language)
     $.ajax(
