@@ -4,17 +4,12 @@ let listening = false;
 
 function validate_selected_speech(animate)
 {
-    function animate_error(element) {
-       element.fadeOut(150).fadeIn(150).fadeOut(150).fadeIn(150).fadeOut(150).fadeIn(150);
-        }
-
-
     let language_selector = document.getElementById("language_selector");
     let selected_value = language_selector.options[language_selector.selectedIndex].value;
     if (selected_value === "Select speech language") {
         let selector_jq = $('#language_selector');
-        if(animate) {
-            animate_error(selector_jq);
+        if (animate) {
+            selector_jq.effect("shake", {times: 2}, 300);
         }
         // selector_jq.css('background', '#333333');
         return false;
