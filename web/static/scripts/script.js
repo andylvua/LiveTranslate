@@ -84,8 +84,8 @@ function stop_listening() {
     let transcript_div = $('#transcript');
     transcript_div.css('color', '#5d5d5d');
 
-    let transcript_placeholder = transcript_div.text();
-    animate_changes(transcript_div, "Stopped", 300, 1000, transcript_placeholder);
+    animate_changes(transcript_div, "Stopped", 300, 1000,
+        "Transcript will appear here");
 }
 
 let translate = "False";
