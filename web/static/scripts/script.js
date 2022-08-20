@@ -40,6 +40,7 @@ function start_listening() {
     )
 
     $('#stop_button').fadeIn(300);
+    $('#language_selector').prop('disabled', true);
 
     $("#transcript").fadeOut(300, function() {
         $(this).text("Start speaking").fadeIn(300);
@@ -64,6 +65,7 @@ function stop_listening() {
     )
 
     $('#stop_button').fadeOut(300);
+    $('#language_selector').prop('disabled', false);
 
     let transcript_div = $('#transcript');
     transcript_div.css('color', '#5d5d5d');
