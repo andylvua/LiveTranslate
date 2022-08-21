@@ -5,7 +5,6 @@ $(function() {
     request.send(null)
     let data = JSON.parse(request.responseText);
 
-    let toAppend = '';
     $.each(data,function(language, code){
        language_selector.append('<option value='+code+'>'+language+'</option>');
     });
@@ -18,7 +17,6 @@ $(function() {
     request.send(null)
     let data = JSON.parse(request.responseText);
 
-    let toAppend = '';
     $.each(data,function(language, code){
        translation_language_selector.append('<option value='+code+'>'+language+'</option>');
     });
